@@ -37,6 +37,8 @@ class CustomerSpecificProducts(models.Model):
 
     @api.onchange('customer_specific_id')
     def _onchange_customer_specific_id(self):
+        """Automatically untick is_customer_owned when customer_specific_id is set to blank.
+        """
         if not self.customer_specific_id:
             self.is_customer_owned = False
 
