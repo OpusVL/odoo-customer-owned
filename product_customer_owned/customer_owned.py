@@ -20,6 +20,24 @@
 #
 ##############################################################################
 
-from . import customer_owned
+from openerp import models, fields, api
+
+class CustomerSpecificProducts(models.Model):
+    """Add customer-specific and customer-owned fields to products.
+    """
+    _inherit = 'product.template'
+
+    customer_specific_id = fields.Many2one('res.partner',
+        string='Specific to Customer',
+        domain=[('customer', '=', True)],
+        help='Fill this in if this product is specific to a certain customer',
+    )
+
+    is_customer_owned = fields.Boolean(string='Customer owned')
+
+    @api.onchange('customer_specific_id')
+    def _onchange_customer_specific_id(self):
+        if not self.customer_specific_id:
+            self.is_customer_owned = False
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -32,8 +32,10 @@
     'images': [
     ],
     'depends': [
+        'product',
     ],
     'data': [
+        'customer_owned.xml',
     ],
     'demo': [
     ],
